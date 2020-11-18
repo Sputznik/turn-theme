@@ -56,6 +56,8 @@
       'cf' => null
     ), $atts, 'compare_form');
 
+    //var_dump($_REQUEST);
+
     $cf = explode(',', $atts['cf']); //store custom field values from shortcode in array
     $result = ''; //store output here
 
@@ -84,7 +86,7 @@
           if ( is_array($f_value) )
             $result .= '<div class="data-cf">' . implode(", ", $f_value) . '</div>';
           elseif ( substr( $f_value,0,4) === "http" )
-            $result .= '<p class="data-cf"><a href=' . $f_value . ' target="_blank">Link</p>';
+            $result .= '<p class="data-cf"><a href=' . $f_value . ' target="_blank">Link</a></p>';
           else
             $result .= '<div class="data-title">' . $f_value . '</div>';
         }
