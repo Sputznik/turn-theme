@@ -56,31 +56,31 @@
       'cf' => null
     ), $atts, 'compare_form');
 
-    //var_dump($_REQUEST);
+    //var_dump($_GET);
 
     $cf = explode(',', $atts['cf']); //store custom field values from shortcode in array
     $result = ''; //store output here
 
     if ( isset($_GET['submit']) ) {
 
-      $result .= '<h3>Comparison table:</h3><div class="result-table" style="display:inline-grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px 5px;">';
+      $result .= '<h3>Comparison table:</h3><div class="result-table" style="display:inline-grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px 10px;">';
 
-      $post_data = array(get_post($_GET['?select-first']), get_post($_GET['select-second']), get_post($_GET['select-third'])); //ISSUE: first parameter name contains the ? character
+      $post_data = array(get_post($_GET['select-first']), get_post($_GET['select-second']), get_post($_GET['select-third'])); //ISSUE: first parameter name contains the ? character
 
       //FIRST ROW - TITLES
-      $result .= '<div><h6>Name</h6></div>';
+      $result .= '<div class="first-col"><h6>Name</h6></div>';
       foreach ($post_data as $key => $p) {
         $result .= '<div class="data-title"><h4>' . $p->post_title . '</h4></div>';
       }
       //SECOND ROW - TAXONOMY
-      $result .= '<div>' . ucwords($atts['tax']) . '</div>';
+      $result .= '<div class="first-col">' . ucwords($atts['tax']) . '</div>';
       foreach ($post_data as $key => $p) {
         $post_terms = get_the_terms( $p->ID, $atts['tax'] );
         $result .= '<div class="data-tax">' . join(", ", wp_list_pluck($post_terms, 'name')) . '</div>';
       }
       //CUSTOM FIELD ROWS
       foreach ($cf as $key => $field) {
-        $result .= '<div>' . ucwords(str_replace("-", " ", $field)) . '</div>';
+        $result .= '<div class="first-col">' . ucwords(str_replace("-", " ", $field)) . '</div>';
         foreach ($post_data as $key => $p) {
           $f_value = get_post_meta($p->ID, $field, true);
           if ( is_array($f_value) )
