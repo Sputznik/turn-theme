@@ -8,7 +8,7 @@
 		}
 	}
 
-	$post_data = array( get_post( $_GET['select-first'] ), get_post( $_GET['select-second'] ), get_post( $_GET['select-third'] ) );
+	//$post_data = array( get_post( $_GET['select-first'] ), get_post( $_GET['select-second'] ), get_post( $_GET['select-third'] ) );
 
 	$grid_template_cols = "1fr 1fr 1fr";
 	if( count( $post_data ) > 3 ){
