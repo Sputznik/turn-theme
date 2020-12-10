@@ -59,44 +59,12 @@
     //var_dump($_GET);
 
     $cf = explode(',', $atts['cf']); //store custom field values from shortcode in array
-    $result = ''; //store output here
 
-    if ( isset($_GET['submit']) ) {
+		if ( !isset($_GET['submit']) ) return "<p>Make a selection and press compare</p>";
 
-      $result .= '<h3>Comparison table:</h3><div class="result-table" style="display:inline-grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px 10px;">';
+		ob_start();
 
-      $post_data = array(get_post($_GET['select-first']), get_post($_GET['select-second']), get_post($_GET['select-third'])); //ISSUE: first parameter name contains the ? character
+		include( 'templates/orbit_compare_result.php' );
 
-      //FIRST ROW - TITLES
-      $result .= '<div class="first-col"><h6>Name</h6></div>';
-      foreach ($post_data as $key => $p) {
-        $result .= '<div class="data-title"><h4>' . $p->post_title . '</h4></div>';
-      }
-      //SECOND ROW - TAXONOMY
-      $result .= '<div class="first-col">' . ucwords($atts['tax']) . '</div>';
-      foreach ($post_data as $key => $p) {
-        $post_terms = get_the_terms( $p->ID, $atts['tax'] );
-        $result .= '<div class="data-tax">' . join(", ", wp_list_pluck($post_terms, 'name')) . '</div>';
-      }
-      //CUSTOM FIELD ROWS
-      foreach ($cf as $key => $field) {
-        $result .= '<div class="first-col">' . ucwords(str_replace("-", " ", $field)) . '</div>';
-        foreach ($post_data as $key => $p) {
-          $f_value = get_post_meta($p->ID, $field, true);
-          if ( is_array($f_value) )
-            $result .= '<div class="data-cf">' . implode(", ", $f_value) . '</div>';
-          elseif ( substr( $f_value,0,4) === "http" )
-            $result .= '<p class="data-cf"><a href=' . $f_value . ' target="_blank">Link</a></p>';
-          else
-            $result .= '<div class="data-title">' . $f_value . '</div>';
-        }
-      }
-
-      $result .= '</div>';
-      return $result;
-    }
-    else return "<p>Make a selection and press compare</p>";
-
-  });
-
-?>
+		return ob_get_clean();
+	});
