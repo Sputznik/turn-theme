@@ -1,19 +1,21 @@
 <?php
 
-	$post_data = array();
+	//$post_data = array( get_post( $_GET['select-first'] ), get_post( $_GET['select-second'] ), get_post( $_GET['select-third'] ) );
 
+	// GET THE SELECTED POSTS IN AN ARRAY OF POSTS
+	$post_data = array();
 	foreach( array( 'select-first', 'select-second', 'select-third' ) as $post_slug ) ){
 		if( isset( $_GET[ $post_slug ] ) ){
 			array_push( $post_data, get_post( $_GET[ $post_slug ] ) );
 		}
 	}
 
-	//$post_data = array( get_post( $_GET['select-first'] ), get_post( $_GET['select-second'] ), get_post( $_GET['select-third'] ) );
-
+	// DETERMINE THE COLUMN OF THE GRID BY THE NUMBER OF POSTS SELECTED
 	$grid_template_cols = "1fr 1fr 1fr";
 	if( count( $post_data ) > 3 ){
 		$grid_template_cols = "1fr 1fr 1fr 1fr";
 	}
+
 ?>
 <div class="result-container">
 	<h3>Comparison table:</h3>

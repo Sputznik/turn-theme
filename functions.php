@@ -58,7 +58,7 @@
 
     //var_dump($_GET);
 
-    $cf = explode(',', $atts['cf']); //store custom field values from shortcode in array
+    $cf = explode( ',', $atts['cf'] ); //store custom field values from shortcode in array
 
 		if ( !isset($_GET['submit']) ) return "<p>Make a selection and press compare</p>";
 
