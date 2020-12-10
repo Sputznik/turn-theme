@@ -10,9 +10,11 @@
 		}
 	}
 
+	//echo count( $post_data );
+
 	// DETERMINE THE COLUMN OF THE GRID BY THE NUMBER OF POSTS SELECTED
 	$grid_template_cols = "1fr 1fr 1fr";
-	if( count( $post_data ) > 3 ){
+	if( count( $post_data ) > 2 ){
 		$grid_template_cols = "1fr 1fr 1fr 1fr";
 	}
 
