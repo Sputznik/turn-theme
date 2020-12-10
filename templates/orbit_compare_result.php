@@ -1,7 +1,23 @@
-<?php $post_data = array( get_post( $_GET['select-first'] ), get_post( $_GET['select-second'] ), get_post( $_GET['select-third'] ) ); ?>
+<?php
+
+	$post_data = array();
+
+	foreach( array( 'select-first', 'select-second', 'select-third' as $post_slug ) ){
+		if( isset( $_GET[ $post_slug ] ) ){
+			array_push( $post_data, $_GET[ $post_slug ] );
+		}
+	}
+
+	$post_data = array( get_post( $_GET['select-first'] ), get_post( $_GET['select-second'] ), get_post( $_GET['select-third'] ) );
+
+	$grid_template_cols = "1fr 1fr 1fr";
+	if( count( $post_data ) > 3 ){
+		$grid_template_cols = "1fr 1fr 1fr 1fr";
+	}
+?>
 
 <h3>Comparison table:</h3>
-<div class="result-table" style="display:inline-grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px 10px;">
+<div class="result-table" style="display:inline-grid;grid-template-columns:<?php echo $grid_template_cols; ?>;gap:20px 10px;">
 	<!-- FIRST ROW - TITLES -->
 	<div class="first-col"><h6>Name</h6></div>
 	<?php foreach ( $post_data as $key => $p ):?>

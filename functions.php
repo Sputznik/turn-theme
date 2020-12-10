@@ -41,7 +41,7 @@
     $output_form .= '<select class="form-control" name="select-second" id="select-second" required="required">' . $output_list . '</select></div>';
     //third dropdown
     $output_form .= '<div class="dropdown-compare-form select-third"><label for="select-third" class="compare-select-label">Select third ' . $post_type_obj->labels->singular_name . '</label>';
-    $output_form .= '<select class="form-control" name="select-third" id="select-third" required="required">' . $output_list . '</select></div>';
+    $output_form .= '<select class="form-control" name="select-third" id="select-third">' . $output_list . '</select></div>';
     //compare button
     $output_form .= '<input class="compare-form-btn" type="submit" value="Compare" name="submit" class="orbit_compare_btn"><input class="compare-form-reset" type="reset"></form>';
 
