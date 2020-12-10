@@ -13,15 +13,15 @@
 	//echo count( $post_data );
 
 	// DETERMINE THE COLUMN OF THE GRID BY THE NUMBER OF POSTS SELECTED
-	$grid_template_cols = "1fr 1fr 1fr";
+	$col_class = 'col-3';
 	if( count( $post_data ) > 2 ){
-		$grid_template_cols = "1fr 1fr 1fr 1fr";
+		$col_class = 'col-4';
 	}
 
 ?>
 <div class="result-container">
 	<h3>Comparison table:</h3>
-	<div class="result-table" style="display:inline-grid;grid-template-columns:<?php echo $grid_template_cols; ?>;gap:20px 10px;">
+	<div class="result-table <?php echo $col_class;?>">
 		<!-- FIRST ROW - TITLES -->
 		<div class="first-col"><h6>Name</h6></div>
 		<?php foreach ( $post_data as $key => $p ):?>
@@ -49,3 +49,16 @@
 		<?php endforeach;?>
 	</div> <!-- result-table -->
 </div> <!-- result-container -->
+<style>
+	.result-table{
+		display:inline-grid;
+		gap:20px 10px;
+	}
+
+	.result-table.col-3{
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+	.result-table.col-4{
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+</style>
