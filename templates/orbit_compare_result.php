@@ -4,7 +4,7 @@
 
 	// GET THE SELECTED POSTS IN AN ARRAY OF POSTS
 	$post_data = array();
-	foreach( array( 'select-first', 'select-second', 'select-third' ) as $post_slug ) ){
+	foreach( array( 'select-first', 'select-second', 'select-third' ) as $post_slug ){
 		if( isset( $_GET[ $post_slug ] ) ){
 			array_push( $post_data, get_post( $_GET[ $post_slug ] ) );
 		}
