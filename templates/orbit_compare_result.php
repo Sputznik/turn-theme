@@ -23,9 +23,9 @@
 	<h3>Comparison table:</h3>
 	<div class="result-table <?php echo $col_class;?>">
 		<!-- FIRST ROW - TITLES -->
-		<div class="first-col"><h6>Name</h6></div>
+		<div class="first-col">Name</div>
 		<?php foreach ( $post_data as $key => $p ):?>
-			<div class="data-title"><h4><?php echo $p->post_title; ?></h4></div>
+			<div class="data-title"><strong><?php echo $p->post_title; ?></strong></div>
 		<?php endforeach;?>
 
 		<!-- SECOND ROW - TAXONOMY -->
@@ -51,14 +51,21 @@
 </div> <!-- result-container -->
 <style>
 	.result-table{
+		margin-top: 20px;
 		display:inline-grid;
-		gap:20px 10px;
+	}
+	.result-table div{
+		padding:10px;
+		border:1px solid #eee;
+	}
+	.result-table div.first-col{
+		color:#777;
 	}
 
 	.result-table.col-3{
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: 0.5fr 1fr 1fr;
 	}
 	.result-table.col-4{
-		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-template-columns: 0.5fr 1fr 1fr 1fr;
 	}
 </style>
