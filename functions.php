@@ -1,49 +1,47 @@
 <?php
   define ( 'turn-theme-version', '1.1.0' );
 
-  //COMPARE POSTS FORM GENERATOR
-  add_shortcode( 'orbit_compare_form', function( $atts ) {
+  class ORBIT_COMPARE{
 
-    $atts = shortcode_atts( array(
-      'type' => 'posts' //default, but works for any post-type
-    ), $atts, 'compare_form' );
+		function __construct(){
+			add_shortcode( 'orbit_compare_form', array( $this , 'form' ) );
 
-    $post_type_obj = get_post_type_object( $atts['type'] ); //for post type labels
+			add_shortcode( 'orbit_compare_result', array( $this, 'result' ) );
+		}
 
-    //query arguments to pull data
-    $q_args = array(
-      'post_type' => $atts['type'],
-      'post_status' => array( 'published' ),
-      'nopaging' => true,
-      'posts_per_page' => '50',
-      'order' => 'ASC',
-      'orderby' => 'name'
-    );
-    $the_query = new WP_Query( $q_args );
+		function result( $atts ){
 
-    ob_start();
+			if ( !isset( $_GET['submit'] ) ) return "<p>Make a selection and press compare</p>";
 
-    include( 'templates/orbit_compare_form.php' );
+			$atts = shortcode_atts( array(
+	      'tax' 		=> 'categories', //default, but works for any taxonomy
+	      'cf' 			=> null,
+				'style'		=> 'table'
+	    ), $atts, 'orbit_compare_result' );
 
-    return ob_get_clean();
+	    $cf = explode( ',', $atts['cf'] ); //store custom field values from shortcode in array
 
-  } );
+			ob_start();
+			$tmp_file = 'orbit_compare_result_' . $atts[ 'style' ] . '.php';
+			include( 'templates/' . $tmp_file );
+			return ob_get_clean();
+		}
 
-  //COMPARE POST RESULT
-  add_shortcode( 'orbit_compare_result', function( $atts ) {
+		function form( $atts ){
+			$atts = shortcode_atts( array(
+	      'type' => 'post' //default, but works for any post-type
+	    ), $atts, 'orbit_compare_form' );
 
-    $atts = shortcode_atts( array(
-      'tax' => 'categories', //default, but works for any taxonomy
-      'cf' => null
-    ), $atts, 'compare_form');
+	    ob_start();
+			include( 'templates/orbit_compare_form.php' );
+			return ob_get_clean();
+		}
 
-    $cf = explode( ',', $atts['cf'] ); //store custom field values from shortcode in array
+		function dropdownHtml( $select_name, $label, $options_list, $required ){
+			ob_start();
+			include( 'templates/orbit_dropdown_posts.php' );
+			return ob_get_clean();
+		}
 
-		if ( !isset($_GET['submit']) ) return "<p>Make a selection and press compare</p>";
-
-		ob_start();
-
-		include( 'templates/orbit_compare_result.php' );
-
-		return ob_get_clean();
-	});
+	}
+	new ORBIT_COMPARE;
