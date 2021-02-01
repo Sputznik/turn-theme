@@ -92,6 +92,9 @@
 	.result-container .carousel-control.left, .result-container .carousel-control.right{
 		background-image: none;
 		width: 50px;
+		height: 100px;
+		top: 50%;
+		transform: translateY( -50% );
 	}
 	.result-container .carousel-control.left{ left:-60px; }
 	.result-container .carousel-control.right{ right: -60px; }
